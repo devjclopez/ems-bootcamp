@@ -1,7 +1,9 @@
 package com.nttdata.bootcamp.event.utils;
 
 import com.nttdata.bootcamp.event.dto.CategoryDto;
+import com.nttdata.bootcamp.event.dto.UbicacionDto;
 import com.nttdata.bootcamp.event.model.Category;
+import com.nttdata.bootcamp.event.model.Ubicacion;
 import org.springframework.beans.BeanUtils;
 
 public class AppUtils {
@@ -15,5 +17,17 @@ public class AppUtils {
     Category category = new Category();
     BeanUtils.copyProperties(categoryDto, category);
     return category;
+  }
+
+  public static UbicacionDto ubicacionToDto(Ubicacion ubicacion) {
+    UbicacionDto ubicacionDto = new UbicacionDto();
+    BeanUtils.copyProperties(ubicacion, ubicacionDto);
+    return ubicacionDto;
+  }
+
+  public static Ubicacion dtoToUbicacion(UbicacionDto ubicacionDto) {
+    Ubicacion ubicacion = new Ubicacion();
+    BeanUtils.copyProperties(ubicacionDto, ubicacion);
+    return ubicacion;
   }
 }
