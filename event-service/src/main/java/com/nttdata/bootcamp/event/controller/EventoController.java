@@ -20,6 +20,11 @@ public class EventoController {
     return service.save(eventoDto);
   }
 
+  @PutMapping("/actualizar/{id}")
+  public Mono<EventoResponseDto> update(@PathVariable("id") Integer id, @RequestBody EventoDto eventoDto) {
+    return service.update(id, eventoDto);
+  }
+
   @GetMapping("/single/{id}")
   public Mono<EventoResponseDto> get(@PathVariable("id") Integer id) {
     return service.get(id);
