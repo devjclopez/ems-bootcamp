@@ -50,4 +50,14 @@ public class TicketServiceImpl implements TicketService {
             .switchIfEmpty(Mono.error(new NotFoundException("El ticket con id " + id + " no existe")))
             .flatMap(repository::delete);
   }
+
+  @Override
+  public Flux<Ticket> getTicketsByEvent(Integer eventoId) {
+    return repository.findByEventoId(eventoId);
+  }
+
+  @Override
+  public Mono<Void> deleteAllByEvent(Integer eventoId) {
+    return repository.deleteAllByEventoId(eventoId);
+  }
 }

@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("api/v1/tickets-s/tickets")
+@RequestMapping("api/v1/tickets")
 @RequiredArgsConstructor
 public class TicketController {
   
@@ -38,5 +38,15 @@ public class TicketController {
   @DeleteMapping("/{id}")
   public Mono<Void> save(@PathVariable("id") String id) {
     return service.delete(id);
+  }
+
+  @GetMapping("/evento/{eventoId}")
+  public Flux<Ticket> getTicketsByEvent(@PathVariable("eventoId") Integer eventoId) {
+    return service.getTicketsByEvent(eventoId);
+  }
+
+  @DeleteMapping("/evento/{eventoId}")
+  public Mono<Void> deleteAllByEvent(@PathVariable("eventoId") Integer eventoId) {
+    return service.deleteAllByEvent(eventoId);
   }
 }

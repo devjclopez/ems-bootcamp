@@ -10,4 +10,6 @@ public interface TicketService {
   Mono<Ticket> get(String id);
   Flux<Ticket> getAll();
   Mono<Void> delete(String id);
+  Flux<Ticket> getTicketsByEvent(Integer eventoId);
+  Mono<Void> deleteAllByEvent(Integer eventoId);
 }
