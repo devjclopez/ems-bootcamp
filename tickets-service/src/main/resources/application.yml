@@ -1,0 +1,6 @@
+server:
+  port: 8051
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:28017/ventas_db
