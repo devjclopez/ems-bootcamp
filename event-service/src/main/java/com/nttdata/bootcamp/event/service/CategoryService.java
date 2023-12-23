@@ -10,4 +10,5 @@ public interface CategoryService {
   Mono<CategoryDto> get(Integer id);
   Flux<CategoryDto> getAll();
   Mono<Void> delete(Integer id);
+  Mono<CategoryDto> getCatByTitle(String title);
 }

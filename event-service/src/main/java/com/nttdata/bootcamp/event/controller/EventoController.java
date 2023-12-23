@@ -40,4 +40,9 @@ public class EventoController {
     return service.delete(id);
   }
 
+  // Search Events
+  @GetMapping("/{category}")
+  public Flux<EventoResponseDto> getEventsByCat(@PathVariable("category") String category) {
+    return service.getEventsByCategory(category);
+  }
 }

@@ -23,7 +23,6 @@ public class EventoServiceImpl implements EventoService {
 
   private final EventoRepository eventoRepository;
   private final UbicacionService ubicacionService;
-  private final UbicacionRepository ubicacionRepository;
   private final CategoryService categoryService;
 
   @Override
@@ -76,7 +75,7 @@ public class EventoServiceImpl implements EventoService {
   @Override
   public Mono<EventoResponseDto> get(Integer id) {
     return eventoRepository.findById(id)
-            .switchIfEmpty(Mono.error(new NotFoundException("El evento con id: "+ id + "no existe")))
+            .switchIfEmpty(Mono.error(new NotFoundException("El evento con id: "+ id + " no existe")))
             .flatMap(this::cargarRelaciones);
   }
 
@@ -89,8 +88,16 @@ public class EventoServiceImpl implements EventoService {
   @Override
   public Mono<Void> delete(Integer id) {
     return eventoRepository.findById(id)
-            .switchIfEmpty(Mono.error(new NotFoundException("El evento con id: "+ id + "no existe")))
-            .flatMap(evento -> ubicacionRepository.deleteById(evento.getUbicacionId())
+            .switchIfEmpty(Mono.error(new NotFoundException("El evento con id: "+ id + " no existe")))
+            .flatMap(evento -> ubicacionService.delete(evento.getUbicacionId())
                     .then(eventoRepository.deleteById(id)));
+  }
+
+  @Override
+  public Flux<EventoResponseDto> getEventsByCategory(String category) {
+    return categoryService.getCatByTitle(category)
+            .switchIfEmpty(Mono.error(new NotFoundException("La categoría " + category + " no existe")))
+            .flatMapMany(categoryDto -> eventoRepository.findEventsByCategory(categoryDto.getId()))
+            .flatMap(this::cargarRelaciones);
   }
 }

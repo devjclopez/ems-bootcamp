@@ -18,6 +18,7 @@ public class AppUtils {
 
   public static Category dtoToEntity(CategoryDto categoryDto) {
     Category category = new Category();
+    categoryDto.setTitle(categoryDto.getTitle().toLowerCase());
     BeanUtils.copyProperties(categoryDto, category);
     return category;
   }

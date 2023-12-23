@@ -11,4 +11,7 @@ public interface EventoService {
   Mono<EventoResponseDto> get(Integer id);
   Flux<EventoResponseDto> getAll();
   Mono<Void> delete(Integer id);
+
+  // Consultas elaboradas
+  Flux<EventoResponseDto> getEventsByCategory(String category);
 }

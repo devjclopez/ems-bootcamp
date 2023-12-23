@@ -30,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
   @Override
   public Mono<CategoryDto> update(Integer id, CategoryDto categoryDto) {
     return repository.findById(id)
-            .switchIfEmpty(Mono.error(new NotFoundException("La categoria con id: "+ id + "no existe")))
+            .switchIfEmpty(Mono.error(new NotFoundException("La categoria con id: "+ id + " no existe")))
             .then(Mono.just(categoryDto))
             .map(AppUtils::dtoToEntity)
             .doOnNext(e -> e.setId(id))
@@ -41,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
   @Override
   public Mono<CategoryDto> get(Integer id) {
     return repository.findById(id)
-            .switchIfEmpty(Mono.error(new NotFoundException("La categoria con id: "+ id + "no existe")))
+            .switchIfEmpty(Mono.error(new NotFoundException("La categoria con id: "+ id + " no existe")))
             .map(AppUtils::entityToDto);
   }
 
@@ -53,5 +53,12 @@ public class CategoryServiceImpl implements CategoryService {
   @Override
   public Mono<Void> delete(Integer id) {
     return repository.deleteById(id);
+  }
+
+  @Override
+  public Mono<CategoryDto> getCatByTitle(String title) {
+    return repository.findByTitle(title)
+            .switchIfEmpty(Mono.error(new NotFoundException("La categoria "+ title + " no existe")))
+            .map(AppUtils::entityToDto);
   }
 }
