@@ -21,4 +21,5 @@ public class Ticket {
   private Integer total;
   private Integer disponible;
   private double precio;
+  private String descripcion;
 }

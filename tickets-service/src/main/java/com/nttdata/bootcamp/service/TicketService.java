@@ -6,8 +6,8 @@ import reactor.core.publisher.Mono;
 
 public interface TicketService {
   Mono<Void> create(Ticket ticket);
-  Mono<Ticket> update(Integer id, Ticket ticket);
-  Mono<Ticket> get(Integer id);
+  Mono<Ticket> update(String id, Ticket ticket);
+  Mono<Ticket> get(String id);
   Flux<Ticket> getAll();
-  Mono<Void> delete(Integer id);
+  Mono<Void> delete(String id);
 }

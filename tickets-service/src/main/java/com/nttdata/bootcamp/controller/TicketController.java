@@ -4,14 +4,12 @@ import com.nttdata.bootcamp.model.Ticket;
 import com.nttdata.bootcamp.service.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("api/v1/tickets")
+@RequestMapping("api/v1/tickets-s/tickets")
 @RequiredArgsConstructor
 public class TicketController {
   
@@ -20,5 +18,25 @@ public class TicketController {
   @PostMapping
   public Mono<Void> save(@RequestBody Ticket ticket) {
     return service.create(ticket);
+  }
+
+  @PutMapping("/{id}")
+  public Mono<Ticket> update(@PathVariable("id") String id, @RequestBody Ticket ticket) {
+    return service.update(id, ticket);
+  }
+
+  @GetMapping("/{id}")
+  public Mono<Ticket> get(@PathVariable("id") String id) {
+    return service.get(id);
+  }
+
+  @GetMapping
+  public Flux<Ticket> getAll() {
+    return service.getAll();
+  }
+
+  @DeleteMapping("/{id}")
+  public Mono<Void> save(@PathVariable("id") String id) {
+    return service.delete(id);
   }
 }
