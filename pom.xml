@@ -19,6 +19,7 @@
     <modules>
         <module>event-service</module>
         <module>tickets-service</module>
+        <module>order-service</module>
     </modules>
 
     <properties>
