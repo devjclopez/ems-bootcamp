@@ -18,7 +18,7 @@
 
     <modules>
         <module>event-service</module>
-        <module>ventas-service</module>
+        <module>tickets-service</module>
     </modules>
 
     <properties>

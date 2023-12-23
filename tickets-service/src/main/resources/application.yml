@@ -3,4 +3,4 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:28017/ventas_db
+      uri: mongodb://localhost:28017/tickets_db

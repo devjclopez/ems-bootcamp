@@ -9,8 +9,8 @@
 	</parent>
 	<artifactId>tickets-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ventas-service</name>
-	<description>Microservicio de venta de entradas</description>
+	<name>tickets-service</name>
+	<description>Microservicio de Gestion de Tickets</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
