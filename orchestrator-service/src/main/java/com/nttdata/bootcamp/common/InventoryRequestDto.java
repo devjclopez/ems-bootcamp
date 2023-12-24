@@ -1,4 +1,4 @@
-package com.nttdata.bootcamp.inventoryservice.dto;
+package com.nttdata.bootcamp.common;
 
 import lombok.Data;
 
