@@ -1,0 +1,29 @@
+server:
+  port: 8055
+spring:
+  application:
+    name: orchestrator-service
+  cloud:
+    function:
+      definition: processor
+    stream:
+      bindings:
+        processor-in-0:
+          destination: order-created
+        processor-out-0:
+          destination: order-updated
+      kafka:
+        binder:
+          replication-factor: 1
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+---
+service:
+  endpoints:
+    inventory: http://localhost:8053
+    payment: http://localhost:8054
+

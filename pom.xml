@@ -25,6 +25,7 @@
         <module>orchestrator-service</module>
         <module>eureka-service</module>
         <module>gateway-service</module>
+        <module>config-service</module>
     </modules>
 
     <properties>

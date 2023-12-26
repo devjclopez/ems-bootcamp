@@ -1,0 +1,19 @@
+server:
+  port: 8051
+spring:
+  application:
+    name: tickets-service
+  datasource:
+    url: jdbc:mysql://localhost:3307/tickets_db
+    username: admin
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
