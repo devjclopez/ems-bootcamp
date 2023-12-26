@@ -1,10 +1,11 @@
-package com.nttdata.bootcamp.inventoryservice.dto;
+package com.nttdata.bootcamp.dto;
 
 import lombok.Data;
 
 @Data
-public class InventoryRequestDto {
+public class OrderRequestDto {
   private Integer userId;
   private Integer ticketId;
+  private Integer eventId;
   private String orderId;
 }

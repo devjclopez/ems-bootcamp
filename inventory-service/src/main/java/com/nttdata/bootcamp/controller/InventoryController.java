@@ -1,13 +1,14 @@
-package com.nttdata.bootcamp.inventoryservice.controller;
+package com.nttdata.bootcamp.controller;
 
-import com.nttdata.bootcamp.inventoryservice.dto.InventoryRequestDto;
-import com.nttdata.bootcamp.inventoryservice.dto.InventoryResponseDto;
-import com.nttdata.bootcamp.inventoryservice.service.impl.InventoryServiceImpl;
+import com.nttdata.bootcamp.dto.InventoryRequestDto;
+import com.nttdata.bootcamp.dto.InventoryResponseDto;
+import com.nttdata.bootcamp.service.impl.InventoryServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/inventory")
@@ -17,7 +18,7 @@ public class InventoryController {
   private final InventoryServiceImpl inventoryService;
 
   @PostMapping("/deduct")
-  public InventoryResponseDto deduct(@RequestBody InventoryRequestDto rqRequestDTO) {
+  public Mono<InventoryResponseDto> deduct(@RequestBody InventoryRequestDto rqRequestDTO) {
     return inventoryService.deduct(rqRequestDTO);
 
   }

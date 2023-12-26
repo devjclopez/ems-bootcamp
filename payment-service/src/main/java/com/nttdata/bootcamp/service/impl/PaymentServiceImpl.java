@@ -24,8 +24,6 @@ public class PaymentServiceImpl implements PaymentService {
     paymentMap.put(3, 700d);
   }
 
-  // Simula el dinero del usuario userId para sumar o restar
-
   @Override
   public PaymentResponseDTO debit(PaymentRequestDTO requestDTO) {
     double balance = paymentMap.getOrDefault(requestDTO.getUserId(), 0d);

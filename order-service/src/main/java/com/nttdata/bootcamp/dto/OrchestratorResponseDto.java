@@ -1,9 +1,9 @@
-package com.nttdata.bootcamp.common;
+package com.nttdata.bootcamp.dto;
 
 import lombok.Data;
 
 @Data
-public class OrchestratorResponseDTO {
+public class OrchestratorResponseDto {
   private Integer userId;
   private Integer ticketId;
   private String orderId;

@@ -1,22 +1,16 @@
-package com.nttdata.bootcamp.model;
+package com.nttdata.bootcamp.dto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-@Entity
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "tickets")
-public class Ticket {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Integer id;
-
-  @Column(name = "evento_id")
+public class TicketDto {
+  private String id;
   private Integer eventoId;
   private String titulo;
   private String zona;

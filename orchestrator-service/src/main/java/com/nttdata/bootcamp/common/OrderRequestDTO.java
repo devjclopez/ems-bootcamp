@@ -8,5 +8,5 @@ import java.util.UUID;
 public class OrderRequestDTO {
     private Integer userId;
     private Integer productId;
-    private UUID orderId;
+    private String orderId;
 }

@@ -6,3 +6,12 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:28017/orders_db
+  cloud:
+    function:
+      definition: supplier;consumer
+    stream:
+      bindings:
+        supplier-out-0:
+          destination: order-created
+        consumer-in-0:
+          destination: order-updated

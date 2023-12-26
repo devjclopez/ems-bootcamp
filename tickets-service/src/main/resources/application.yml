@@ -1,6 +1,11 @@
 server:
   port: 8051
 spring:
-  data:
-    mongodb:
-      uri: mongodb://localhost:28017/tickets_db
+  datasource:
+    url: jdbc:mysql://localhost:3307/tickets_db
+    username: admin
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
