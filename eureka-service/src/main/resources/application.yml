@@ -1,17 +1,20 @@
 server:
-  port: 8053
+  port: 8761
 spring:
   application:
-    name: inventory-service
+    name: eureka-server
 eureka:
   instance:
     hostname: localhost
   client:
+    register-with-eureka: false
+    fetch-registry: false
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://localhost:${server.port}/eureka/
+
 ---
 spring:
   application:
-    name: inventory-service
+    name: eureka-server
   config:
     import: optional:configserver:http://localhost:8888

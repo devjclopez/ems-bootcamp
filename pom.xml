@@ -23,7 +23,8 @@
         <module>inventory-service</module>
         <module>payment-service</module>
         <module>orchestrator-service</module>
-        <module>event-service</module>
+        <module>eureka-service</module>
+        <module>gateway-service</module>
     </modules>
 
     <properties>
