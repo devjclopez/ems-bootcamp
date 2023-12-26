@@ -48,7 +48,6 @@ public class TicketController {
   }
 
   @DeleteMapping("/evento/{eventoId}")
-  @ResponseStatus(HttpStatus.OK)
   public void deleteAllByEvent(@PathVariable("eventoId") Integer eventoId) {
     service.deleteAllByEvent(eventoId);
   }

@@ -7,6 +7,7 @@ import com.nttdata.bootcamp.service.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -50,8 +51,9 @@ public class TicketServiceImpl implements TicketService {
   }
 
   @Override
+  @Transactional
   public void deleteAllByEvent(Integer eventoId) {
-    repository.deleteAllByEventoId(eventoId);
+    repository.deleteByEventoId(eventoId);
   }
 
   @Override
