@@ -2,7 +2,7 @@ package com.nttdata.bootcamp.consumer;
 
 import com.nttdata.bootcamp.dto.OrchestratorRequestDto;
 import com.nttdata.bootcamp.dto.OrchestratorResponseDto;
-import com.nttdata.bootcamp.service.PurchaseOrderService;
+import com.nttdata.bootcamp.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ public class OrderConsumer {
   private Flux<OrchestratorRequestDto> flux;
 
   @Autowired
-  private PurchaseOrderService update;
+  private OrderService update;
 
   @Bean
   public Supplier<Flux<OrchestratorRequestDto>> supplier() {
