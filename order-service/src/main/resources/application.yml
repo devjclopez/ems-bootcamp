@@ -1,8 +1,6 @@
-server:
-  port: 8052
+---
 spring:
   application:
     name: order-service
-  data:
-    mongodb:
-      uri: mongodb://localhost:28017/orders_db
+  config:
+    import: optional:configserver:http://localhost:8888

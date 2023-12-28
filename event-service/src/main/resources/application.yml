@@ -1,12 +1,6 @@
-server:
-  port: 8050
-
+---
 spring:
-  r2dbc:
-    url: r2dbc:postgresql://localhost:5432/events_db
-    username: postgres
-    password: password
-  flyway:
-    url: jdbc:postgresql://localhost:5432/events_db
-    user: postgres
-    password: password
+  application:
+    name: event-service
+  config:
+    import: optional:configserver:http://localhost:8888

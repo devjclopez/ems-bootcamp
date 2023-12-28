@@ -1,6 +1,6 @@
-server:
-  port: 8051
+---
 spring:
-  data:
-    mongodb:
-      uri: mongodb://localhost:28017/tickets_db
+  application:
+    name: tickets-service
+  config:
+    import: optional:configserver:http://localhost:8888

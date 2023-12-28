@@ -7,8 +7,9 @@ import com.nttdata.bootcamp.service.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -17,47 +18,50 @@ public class TicketServiceImpl implements TicketService {
   private final TicketRepository repository;
 
   @Override
-  public Mono<Void> create(Ticket ticket) {
-    return repository.save(ticket).then();
+  public void create(Ticket ticket) {
+    repository.save(ticket);
   }
 
   @Override
-  public Mono<Ticket> update(String id, Ticket ticket) {
-    return repository.findById(id)
-            .switchIfEmpty(Mono.error(new NotFoundException("El ticket con id " + id + " no existe")))
-            .flatMap(existTicket -> {
-              BeanUtils.copyProperties(ticket, existTicket);
-              return Mono.just(existTicket);
-            })
-            .doOnNext(t ->t.setTicketId(id))
-            .flatMap(repository::save);
+  public Ticket update(Integer id, Ticket ticket) {
+    Ticket eTicket = repository.findById(id).orElseThrow(() -> new NotFoundException("El ticket con id " + id + " no existe"));
+    BeanUtils.copyProperties(ticket, eTicket);
+    eTicket.setId(id);
+    return repository.save(eTicket);
   }
 
   @Override
-  public Mono<Ticket> get(String id) {
-    return repository.findById(id)
-            .switchIfEmpty(Mono.error(new NotFoundException("El ticket con id " + id + " no existe")));
+  public Ticket get(Integer id) {
+    return repository.findById(id).orElseThrow(() -> new NotFoundException("El ticket con id " + id + " no existe"));
   }
 
   @Override
-  public Flux<Ticket> getAll() {
+  public List<Ticket> getAll() {
     return repository.findAll();
   }
 
   @Override
-  public Mono<Void> delete(String id) {
-    return repository.findById(id)
-            .switchIfEmpty(Mono.error(new NotFoundException("El ticket con id " + id + " no existe")))
-            .flatMap(repository::delete);
+  public void delete(Integer id) {
+    repository.deleteById(id);
   }
 
   @Override
-  public Flux<Ticket> getTicketsByEvent(Integer eventoId) {
+  public List<Ticket> getTicketsByEvent(Integer eventoId) {
     return repository.findByEventoId(eventoId);
   }
 
   @Override
-  public Mono<Void> deleteAllByEvent(Integer eventoId) {
-    return repository.deleteAllByEventoId(eventoId);
+  @Transactional
+  public void deleteAllByEvent(Integer eventoId) {
+    repository.deleteByEventoId(eventoId);
+  }
+
+  @Override
+  public boolean updateAvailability(Integer id, Integer qty) {
+    Ticket eTicket = repository.findById(id).orElseThrow(() -> new NotFoundException("El ticket con id " + id + " no existe"));
+    eTicket.setDisponible(qty);
+    eTicket.setId(id);
+    Ticket uTicket = repository.save(eTicket);
+    return uTicket.getDisponible().equals(qty);
   }
 }

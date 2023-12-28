@@ -52,7 +52,9 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Override
   public Mono<Void> delete(Integer id) {
-    return repository.deleteById(id);
+    return repository.findById(id)
+            .switchIfEmpty(Mono.error(new NotFoundException("La categoria con id: "+ id + " no existe")))
+            .flatMap(repository::delete);
   }
 
   @Override

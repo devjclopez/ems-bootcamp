@@ -13,13 +13,19 @@ import com.nttdata.bootcamp.event.service.EventoService;
 import com.nttdata.bootcamp.event.service.UbicacionService;
 import com.nttdata.bootcamp.event.utils.AppUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
 public class EventoServiceImpl implements EventoService {
+
+  @Autowired
+  private WebClient webClient;
 
   private final EventoRepository eventoRepository;
   private final UbicacionService ubicacionService;
@@ -88,9 +94,18 @@ public class EventoServiceImpl implements EventoService {
   @Override
   public Mono<Void> delete(Integer id) {
     return eventoRepository.findById(id)
-            .switchIfEmpty(Mono.error(new NotFoundException("El evento con id: "+ id + " no existe")))
+            .switchIfEmpty(Mono.error(new NotFoundException("El evento con id: " + id + " no existe")))
             .flatMap(evento -> ubicacionService.delete(evento.getUbicacionId())
-                    .then(eventoRepository.deleteById(id)));
+                    .then(eventoRepository.deleteById(id)))
+            .doOnSuccess(c -> {
+              webClient
+                      .delete()
+                      .uri("/api/v1/tickets/evento/" + id)
+                      .retrieve()
+                      .toEntity(ResponseEntity.class)
+                      .subscribe();
+            })
+            .then();
   }
 
   @Override
